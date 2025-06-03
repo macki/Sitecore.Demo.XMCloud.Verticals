@@ -221,8 +221,11 @@
     <Content Include="sitecore\shell\Themes\Standard\DemoIcons\48x48\title.png" />
     <Content Include="xdts\Web.config.xdt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Views\My\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Pipelines\GetLayoutServiceContext\ThemeContext.cs" />
     <Compile Include="Pipelines\ParseSiteItem\AddThemeProperty.cs" />
     <Compile Include="Utilities\InitializeComponentsLibraryId.aspx.cs">
