@@ -24,7 +24,7 @@ SharedFields:
   Value: 1
 - ID: "8e0dd914-9afb-4d45-bf8b-7ff5d6e5337e"
   Hint: HostName
-  Value: "www.sxastarter.localhost|localhost|verticals-development-financial.vercel.app|verticals-staging-financial.vercel.app"
+  Value: "demo-lmacura-gd49oqjtu2zwmudlw57lq-financial.vercel.app"
 - ID: "9eaf6dc9-b811-4cda-9edd-9697faba628a"
   Hint: POS
   Value: "en=play-finance&fr=play-finance"
@@ -34,6 +34,9 @@ SharedFields:
 - ID: "da06d09e-02b6-464a-80fc-9d8d7fc875e3"
   Hint: Environment
   Value: *
+- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
+  Hint: __Shared revision
+  Value: "33a4432b-07ac-4f77-bf79-f7801b577372"
 - ID: "f57099a3-526a-49f2-aebd-635453e48875"
   Hint: RenderingHost
   Value: Default
@@ -47,7 +50,7 @@ Languages:
     Fields:
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "a0b931c8-e6a9-476d-95b5-92e92ffc0bd9"
+      Value: "4ee13e52-6772-4967-96eb-99ab4c63800e"
     - ID: "96cffc48-0bd5-4f70-9b36-d49c844d51ef"
       Hint: Theme
       Value: Financial
