@@ -14,6 +14,9 @@ SharedFields:
   Hint: __Thumbnail
   Value: |
     <image mediaid="{C0EA0BCD-AD21-41A9-8F73-C7F8D0EC193C}" />
+- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
+  Hint: __Shared revision
+  Value: "238897e3-83c7-4821-af01-83d33d8af642"
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Value: |
@@ -223,11 +226,16 @@ SharedFields:
           s:ph="/headless-main/container-29" />
         <r
           uid="{64A91032-C170-48FE-986B-96DF69ABC8BA}"
-          p:after="*[1=2]"
+          p:after="r[@uid='{7F20A51A-6909-4B49-9C4C-2B97CC8E2AD3}']"
           s:ds="d4713fc0-9904-4458-b6bd-938e362f489b"
           s:id="{52733592-6F5D-4FB4-8003-9B8223C5BC76}"
           s:par="GridParameters=%7B7465D855-992E-4DC2-9855-A03250DFA74B%7D&amp;NumberOfItems=3&amp;FieldNames=%7B4708A14B-D480-42A6-8D58-C92690B48356%7D&amp;Styles&amp;RenderingIdentifier&amp;CSSStyles&amp;DynamicPlaceholderId=31"
           s:ph="/headless-main/container-29" />
+        <r
+          uid="{63319FE2-5B7B-4353-BC09-A6FAE289CEEC}"
+          p:after="*[1=2]"
+          s:id="{FF7498C7-D79E-4F39-8799-6DCDC023D976}"
+          s:ph="headless-main" />
       </d>
     </r>
 - ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
@@ -249,7 +257,7 @@ Languages:
       Value: Services
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "1a50d9fa-4b1c-4550-9503-5927f4659a77"
+      Value: "ab77936f-8435-427d-afc3-848c08f0b96b"
     - ID: "d77eab5a-d654-445f-b15c-d32283737e1f"
       Hint: Title
       Value: "PLAY! Services"

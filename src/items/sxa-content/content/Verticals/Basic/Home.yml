@@ -11,6 +11,9 @@ SharedFields:
   Hint: __Thumbnail
   Value: |
     <image mediaid="{9B3420AA-A65B-4508-9418-145AD4407D47}" />
+- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
+  Hint: __Shared revision
+  Value: "4b906368-dfb6-4d46-a4ce-a07bcb51b19c"
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Value: |
@@ -54,11 +57,16 @@ SharedFields:
           s:ph="/headless-main/container-1" />
         <r
           uid="{A2A67AFC-A5C9-4078-97AE-5F83DA40467B}"
-          p:after="*[1=2]"
+          p:after="r[@uid='{D458B4B2-8C73-444C-9CF2-058A72599124}']"
           s:ds="local:/Data/PromoRight"
           s:id="{2492BAC4-DA07-4C86-87F0-9873D40E2276}"
           s:par="?Styles=%7bB4968513-37CD-4FFA-901D-873DC3AE8A30%7d&amp;FieldNames=%7bC1FF7E38-E21B-446B-98F6-58F81984D98F%7d&amp;GridParameters=%7b7465D855-992E-4DC2-9855-A03250DFA74B%7d%7c%7b81225C08-5783-4BED-A86A-AB2B87198885%7d%7c%7b41E4B2ED-E813-46F9-8455-C26C88E78D47%7d%7c%7b1D84575C-B71C-40B2-BE7E-65503BCD666E%7d"
           s:ph="/headless-main/container-1" />
+        <r
+          uid="{15ADFF95-4417-4777-B90B-BFD7236C1717}"
+          p:after="*[1=2]"
+          s:id="{FF7498C7-D79E-4F39-8799-6DCDC023D976}"
+          s:ph="headless-main" />
       </d>
     </r>
 - ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
@@ -74,7 +82,7 @@ Languages:
       Value: Home
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "67da7dc0-db6c-4a80-b91b-72a3c0b85380"
+      Value: "08d560df-85a3-4b0e-b3b1-50f3fc3a3831"
     - ID: "ca15ff2f-1966-4a91-81bf-bf2eba17c20c"
       Hint: Title
       Value: Home
