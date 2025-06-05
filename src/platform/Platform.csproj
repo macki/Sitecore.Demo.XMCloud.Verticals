@@ -70,9 +70,13 @@
     <PackageReference Include="Sitecore.Assemblies.SitecoreHeadlessServicesServer" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\Sitecore.Demo.Verticals.config" />
+    <Content Include="App_Config\Include\Sitecore.Demo.Verticals.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="App_Config\Include\XmCloudSXAStarter\XmCloudSXAStarter.MvcRoutes.config" />
-    <Content Include="App_Config\zzz.MyProject\MyProject.JssCustomApis.config" />
+    <Content Include="App_Config\zzz.MyProject\MyProject.JssCustomApis.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Platform.wpp.targets" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="README.md" />

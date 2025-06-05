@@ -1,8 +1,13 @@
-﻿using Sitecore.Mvc.Controllers;
+﻿using Microsoft.IdentityModel.Tokens;
+using Sitecore.Mvc.Controllers;
+using Sitecore.Security.Accounts;
 using Sitecore.Security.Authentication;
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Web.Mvc;
-using Sitecore.Security.Accounts;
 
 namespace XmCloudSXAStarter.Controllers
 {
@@ -39,15 +44,47 @@ namespace XmCloudSXAStarter.Controllers
                     {
                         name = virtualUser.Name,
                         displayName = virtualUser.Profile.FullName,
-                        isAuthenticated = true
+                        isAuthenticated = true,
+                        token = GenerateApplicationToken(virtualUser.Profile.Email, virtualUser.Roles.Select(r => r.Name).ToList())
                     }
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 Sitecore.Diagnostics.Log.Error("Error in virtual login", ex, this);
                 return Json(new { success = false, message = "Login failed: " + ex.Message });
             }
+        }
+
+        private string GenerateApplicationToken(string email, List<string> roles)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = System.Text.Encoding.ASCII.GetBytes("1234");
+
+            var claims = new List<Claim>
+        {
+            new Claim("email", email),
+            new Claim("iss", "your-app"),
+            new Claim("aud", "nextjs-app")
+        };
+
+            // Add role claims
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim("roles", role));
+            }
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         private User CreateVirtualUser(string username)
