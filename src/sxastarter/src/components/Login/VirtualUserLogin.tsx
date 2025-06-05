@@ -43,18 +43,18 @@ const VirtualUserLogin = (): JSX.Element => {
     };
 
     return (
-        <div className={styles.loginContainer}>
-            <h2 className={styles.title}>Virtual User Login</h2>
+        <div className="container mt-4">
+            <h2 className="mb-3">Virtual User Login</h2>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                    <label htmlFor="username" className={styles.label}>Username:</label>
+            <form onSubmit={handleSubmit} className="form">
+                <div className="form-group mb-3">
+                    <label htmlFor="username" className="form-label">Username:</label>
                     <input
                         type="text"
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className={styles.input}
+                        className="form-control"
                         placeholder="Enter username"
                         required
                         disabled={loading}
@@ -63,18 +63,18 @@ const VirtualUserLogin = (): JSX.Element => {
 
                 <button
                     type="submit"
-                    className={styles.button}
+                    className="btn btn-primary"
                     disabled={loading || !username.trim()}
                 >
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
             </form>
 
-            {error && <div className={styles.error}>{error}</div>}
-            {successMessage && <div className={styles.success}>{successMessage}</div>}
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
+            {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
 
             {user && (
-                <div className={styles.userInfo}>
+                <div className="card mt-3 p-3">
                     <h3>User Information:</h3>
                     <p><strong>Name:</strong> {user.name}</p>
                     <p><strong>Display Name:</strong> {user.displayName}</p>
