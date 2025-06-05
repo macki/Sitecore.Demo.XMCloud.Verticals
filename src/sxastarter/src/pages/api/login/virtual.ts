@@ -45,9 +45,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(response.status).json(data);
     } catch (error) {
         console.error('Error forwarding login request:', error);
+        console.log(error);
+        // Convert error to a serializable object
+        const errorObj = {
+            message: error instanceof Error ? error.message : String(error),
+            stack: error instanceof Error ? error.stack : undefined,
+            toString: error.toString()
+        };
+
         return res.status(500).json({
             success: false,
             message: 'An error occurred while processing the login request',
+            error: errorObj
         });
     }
 }
