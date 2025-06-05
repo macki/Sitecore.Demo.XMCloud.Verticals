@@ -63,9 +63,12 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
       formData.append('username', username);
 
       // Send login request to the VirtualLogin endpoint
-      const response = await fetch('/api/sitecore/Login/VirtualLogin', {
+      const response = await fetch('/api/login/virtual', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
       });
 
       const data = await response.json();
@@ -241,6 +244,29 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
             </span>
           </div>
         </div>
+      </div>
+
+      <div className="mt-4 mb-4">
+        <button
+          className="btn btn-primary"
+          onClick={async () => {
+            try {
+              const response = await fetch('/api/sitecore/My/myAction', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              });
+              const data = await response.json();
+              alert('Action completed: ' + JSON.stringify(data));
+            } catch (error) {
+              console.error('Error calling myAction:', error);
+              alert('Error calling action');
+            }
+          }}
+        >
+          My Action
+        </button>
       </div>
 
       <div className="container mt-4">

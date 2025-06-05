@@ -75,6 +75,7 @@
     <None Include="Platform.wpp.targets" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="README.md" />
+    <Content Include="sitecore\login-test.html" />
     <Content Include="sitecore\shell\Themes\Standard\DemoIcons\16x16\desktop.ini" />
     <Content Include="sitecore\shell\Themes\Standard\DemoIcons\24x24\desktop.ini" />
     <Content Include="sitecore\shell\Themes\Standard\DemoIcons\32x32\desktop.ini" />

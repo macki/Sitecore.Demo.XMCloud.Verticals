@@ -1,0 +1,53 @@
+/* eslint-disable */
+import { NextApiRequest, NextApiResponse } from 'next';
+import config from 'temp/config';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ success: false, message: 'Method not allowed' });
+    }
+
+    try {
+        const { username } = req.body;
+
+        if (!username) {
+            return res.status(400).json({ success: false, message: 'Username is required' });
+        }
+
+        // Create form data that matches what the Sitecore controller expects
+        const formData = new URLSearchParams();
+        formData.append('username', username);
+
+        // Forward the request to Sitecore's controller endpoint
+        const sitecoreApiUrl = `${config.sitecoreApiHost}/api/sitecore/Login/VirtualLogin`;
+
+        console.log(`Forwarding login request to: ${sitecoreApiUrl}`);
+
+        const response = await fetch(sitecoreApiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString(),
+            credentials: 'include',
+        });
+
+        // Get response from Sitecore
+        const data = await response.json();
+
+        // Forward cookies from Sitecore to maintain authentication state
+        const cookies = response.headers.get('set-cookie');
+        if (cookies) {
+            res.setHeader('Set-Cookie', cookies);
+        }
+
+        // Return the same response data
+        return res.status(response.status).json(data);
+    } catch (error) {
+        console.error('Error forwarding login request:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'An error occurred while processing the login request',
+        });
+    }
+}
