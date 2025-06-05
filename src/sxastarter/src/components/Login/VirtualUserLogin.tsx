@@ -35,6 +35,15 @@ const VirtualUserLogin = (): JSX.Element => {
             }
 
             console.log(data);
+        } catch (error) {
+
+            const errorObj = {
+                message: error instanceof Error ? error.message : String(error),
+                stack: error instanceof Error ? error.stack : undefined,
+                toString: String(error)
+            };
+
+            console.error('Login error:', errorObj);
         }
 
         try {
