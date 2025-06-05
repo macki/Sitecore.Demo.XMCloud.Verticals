@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { NextApiRequest, NextApiResponse } from 'next';
 import config from 'temp/config';
 
@@ -47,20 +46,40 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             credentials: 'include',
         });
 
-        // Get response from Sitecore
-        const data = await response.json();
-
         // Forward cookies from Sitecore to maintain authentication state
         const cookies = response.headers.get('set-cookie');
         if (cookies) {
             res.setHeader('Set-Cookie', cookies);
         }
 
-        // Return the same response data
-        return res.status(response.status).json(data);
+        // Check content type before trying to parse as JSON
+        const contentType = response.headers.get('content-type');
+
+        if (contentType && contentType.includes('application/json')) {
+            // If it's JSON, parse it and return
+            const data = await response.json();
+            return res.status(response.status).json(data);
+        } else {
+            // If it's not JSON, it's likely an error page or HTML
+            const text = await response.text();
+
+            // Log the first 500 characters for debugging
+            console.error('Non-JSON response:', text.substring(0, 500));
+
+            // Return a more helpful error
+            return res.status(500).json({
+                success: false,
+                message: 'Sitecore returned a non-JSON response',
+                error: {
+                    statusCode: response.status,
+                    statusText: response.statusText,
+                    contentType: contentType || 'unknown'
+                }
+            });
+        }
     } catch (error) {
         console.error('Error forwarding login request:', error);
-        console.log(error);
+
         // Convert error to a serializable object
         const errorObj = {
             message: error instanceof Error ? error.message : String(error),
