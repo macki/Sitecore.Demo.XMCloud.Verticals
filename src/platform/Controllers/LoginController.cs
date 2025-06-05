@@ -8,7 +8,7 @@ namespace XmCloudSXAStarter.Controllers
 {
     public class LoginController : SitecoreController
     {
-        [AcceptVerbs("GET", "POST")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult VirtualLogin(string username)
         {
             try
