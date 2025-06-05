@@ -41,9 +41,49 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
   const [loanTerm, setLoanTerm] = useState(
     Math.round((props.fields.MinTerm.value + props.fields.MaxTerm.value) / 2)
   );
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [user, setUser] = useState<any>(null);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
   const [totalDebt, setTotalDebt] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('username', username);
+
+      // Send login request to the VirtualLogin endpoint
+      const response = await fetch('/api/sitecore/Login/VirtualLogin', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSuccessMessage(data.message);
+        setUser(data.user);
+        // Optionally refresh the page to update authentication status
+        // window.location.reload();
+      } else {
+        setError(data.message || 'Login failed.');
+      }
+    } catch (err) {
+      setError('An error occurred while trying to log in.');
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const monthlyInterestRate = props.fields.InterestRate.value / 100 / 12;
@@ -107,14 +147,13 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(parseInt(e.target.value))}
                 style={{
-                  backgroundSize: `${
-                    loanAmount < props.fields.MinAmount.value
+                  backgroundSize: `${loanAmount < props.fields.MinAmount.value
                       ? '0'
                       : loanAmount > props.fields.MaxAmount.value
-                      ? '100'
-                      : ((loanAmount - props.fields.MinAmount.value) * 100) /
+                        ? '100'
+                        : ((loanAmount - props.fields.MinAmount.value) * 100) /
                         (props.fields.MaxAmount.value - props.fields.MinAmount.value)
-                  }% 100%`,
+                    }% 100%`,
                 }}
               />
             </div>
@@ -177,14 +216,13 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
                 value={loanTerm}
                 onChange={(e) => setLoanTerm(parseInt(e.target.value))}
                 style={{
-                  backgroundSize: `${
-                    loanTerm < props.fields.MinTerm.value
+                  backgroundSize: `${loanTerm < props.fields.MinTerm.value
                       ? '0'
                       : loanTerm > props.fields.MaxTerm.value
-                      ? '100'
-                      : ((loanTerm - props.fields.MinTerm.value) * 100) /
+                        ? '100'
+                        : ((loanTerm - props.fields.MinTerm.value) * 100) /
                         (props.fields.MaxTerm.value - props.fields.MinTerm.value)
-                  }% 100%`,
+                    }% 100%`,
                 }}
               />
             </div>
@@ -202,6 +240,46 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
             </span>
           </div>
         </div>
+      </div>
+
+      <div className={styles.loginContainer}>
+        <h2 className={styles.title}>Virtual User Login</h2>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label htmlFor="username" className={styles.label}>Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.input}
+              placeholder="Enter username"
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={loading || !username.trim()}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        {error && <div className={styles.error}>{error}</div>}
+        {successMessage && <div className={styles.success}>{successMessage}</div>}
+
+        {user && (
+          <div className={styles.userInfo}>
+            <h3>User Information:</h3>
+            <p><strong>Name:</strong> {user.name}</p>
+            <p><strong>Display Name:</strong> {user.displayName}</p>
+            <p><strong>Status:</strong> {user.isAuthenticated ? 'Authenticated' : 'Not Authenticated'}</p>
+          </div>
+        )}
       </div>
 
       <div className="loan-calculator-results">
