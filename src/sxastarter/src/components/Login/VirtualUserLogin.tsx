@@ -15,6 +15,29 @@ const VirtualUserLogin = (): JSX.Element => {
         setSuccessMessage('');
 
         try {
+            // Send login request directly to the controller
+            const response = await fetch('/api/sitecore/Login/VirtualLogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ username }).toString(),
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                setSuccessMessage(data.message);
+                setUser(data.user);
+                // Optionally refresh the page to update authentication status
+                // window.location.reload();
+            } else {
+                setError(data.message || 'Login failed.');
+            }
+
+            console.log(data);
+        }
+
+        try {
             // Prepare form data
             const formData = new FormData();
             formData.append('username', username);

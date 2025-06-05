@@ -18,8 +18,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const formData = new URLSearchParams();
         formData.append('username', username);
 
+        // Make sure the sitecoreApiHost is properly defined with protocol
+        let sitecoreApiHost = config.sitecoreApiHost;
+
+        // Add protocol if missing
+        if (sitecoreApiHost && !sitecoreApiHost.startsWith('http')) {
+            sitecoreApiHost = `https://${sitecoreApiHost}`;
+        }
+
+        // Use a fallback if sitecoreApiHost is undefined
+        if (!sitecoreApiHost) {
+            // Try to derive from request hostname
+            const host = req.headers.host || 'localhost:3000';
+            sitecoreApiHost = `https://${host}`;
+        }
+
         // Forward the request to Sitecore's controller endpoint
-        const sitecoreApiUrl = `${config.sitecoreApiHost}/api/sitecore/Login/VirtualLogin`;
+        const sitecoreApiUrl = `${sitecoreApiHost}/api/sitecore/Login/VirtualLogin`;
 
         console.log(`Forwarding login request to: ${sitecoreApiUrl}`);
 
