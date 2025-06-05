@@ -60,7 +60,7 @@ export const Default = (props: LoanCalculatorProps): JSX.Element => {
 
     try {
       // Send login request directly to the controller
-      const response = await fetch('/api/sitecore/Login/VirtualLogin', {
+      const response = await fetch('/api/Login/VirtualLogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

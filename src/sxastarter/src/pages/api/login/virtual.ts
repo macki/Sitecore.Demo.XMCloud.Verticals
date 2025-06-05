@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         // Forward the request to Sitecore's controller endpoint
-        const sitecoreApiUrl = `${sitecoreApiHost}/api/sitecore/Login/VirtualLogin`;
+        const sitecoreApiUrl = `${sitecoreApiHost}/api/Login/VirtualLogin`;
 
         console.log(`Forwarding login request to: ${sitecoreApiUrl}`);
 
