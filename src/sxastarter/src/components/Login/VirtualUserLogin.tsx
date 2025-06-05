@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ComponentProps } from 'lib/component-props';
 
-const VirtualUserLogin = (props: ComponentProps): JSX.Element => {
+const VirtualUserLogin = (): JSX.Element => {
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
