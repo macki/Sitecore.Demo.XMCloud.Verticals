@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore;
 using Sitecore.DependencyInjection;
@@ -18,8 +17,6 @@ namespace XmCloudSXAStarter.Pipelines.GetLayoutServiceContext
 
         public void Process(GetLayoutServiceContextArgs args)
         {
-            throw new NotImplementedException("This method is not implemented. Please use the GetLayoutServiceContextProcessor instead.");
-
             Assert.ArgumentNotNull(args, nameof(args));
             if (args.ContextData.ContainsKey(ThemeKey))
             {
